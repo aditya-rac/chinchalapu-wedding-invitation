@@ -358,14 +358,21 @@
   /* ---------- peacock band ---------- */
   .peacock-band{position:relative; margin-top:58px; border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 24px 60px rgba(0,0,0,.45)}
   .peacock-band img{width:100%; aspect-ratio:3/1; height:auto; object-fit:cover; object-position:50% 0%; display:block}
-  @media(max-width:560px){
-    .peacock-band .band-text{font-size:1.02rem; padding:36px 14px 12px}
-  }
   .peacock-band .band-text{
     position:absolute; inset:auto 0 0 0; padding:52px 22px 20px; text-align:center;
     background:linear-gradient(180deg, transparent, rgba(2,18,24,.74) 42%, rgba(2,18,24,.95) 78%);
     font-style:italic; font-weight:600; font-size:1.2rem; color:#fffbe9;
     text-shadow:0 1px 3px rgba(0,0,0,.9), 0 2px 16px rgba(0,0,0,.8);
+  }
+  /* phones: the band is too short for an overlaid quote — the statement
+     sits below the artwork instead, so the peacock pair shows in full */
+  @media(max-width:560px){
+    .peacock-band img{aspect-ratio:auto; object-fit:initial}
+    .peacock-band .band-text{
+      position:relative; inset:auto; padding:13px 16px 16px; font-size:1.05rem; line-height:1.5;
+      background:linear-gradient(180deg, rgba(2,18,24,.78), rgba(2,18,24,.97));
+      border-top:1px solid var(--line-soft);
+    }
   }
 
   /* ---------- events : scroll-drawn timeline ---------- */
@@ -701,8 +708,6 @@
       <span class="diya"><span class="flame"></span><span class="bowl"></span></span>
     </div>
     <p class="hosts reveal" style="margin-top:22px;">With love &amp; regards,<br /><b>Madhavi Latha &amp; Vishnu Murty</b></p>
-    <p class="credit">Music: “Achutam Keshvam” — Manisha Saini</p>
-    <p class="template-tag">Template · Royal Peacock — Krishna</p>
   </footer>
 </main>
 
