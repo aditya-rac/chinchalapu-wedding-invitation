@@ -183,7 +183,7 @@
   .cover-feathers img.tl{top:-70px; left:-70px; -webkit-mask-image:radial-gradient(115% 115% at 0% 0%, #000 52%, transparent 76%); mask-image:radial-gradient(115% 115% at 0% 0%, #000 52%, transparent 76%)}
   .cover-feathers img.br{bottom:-70px; right:-70px; transform:scale(-1); animation-delay:-4s; -webkit-mask-image:radial-gradient(115% 115% at 0% 0%, #000 52%, transparent 76%); mask-image:radial-gradient(115% 115% at 0% 0%, #000 52%, transparent 76%)}
   @keyframes featherFloat{0%,100%{translate:0 0}50%{translate:0 14px}}
-  .cover-inner{position:relative; isolation:isolate; text-align:center; padding:44px 22px 40px; max-width:640px; width:100%}
+  .cover-inner{position:relative; isolation:isolate; text-align:center; padding:44px 22px 40px; max-width:640px; width:100%; margin:auto}
   /* soft dark scrim behind the cover text that sits on the mandala —
      darkest at the centre, fading out so the feather ring stays visible at the edges */
   .cover-inner::before{
@@ -197,11 +197,11 @@
   .cover-inner > *:nth-child(3){animation-delay:.52s}
   .cover-inner > *:nth-child(4){animation-delay:.62s}
   .cover-inner > *:nth-child(5){animation-delay:.55s}
-  .cover-inner > *:nth-child(6){animation-delay:1.30s}
-  .cover-inner > *:nth-child(7){animation-delay:1.45s}
-  .cover-inner > *:nth-child(8){animation-delay:1.65s}
-  .cover-inner > *:nth-child(9){animation-delay:1.85s}
-  .cover-inner > *:nth-child(10){animation-delay:2.05s}
+  .cover-inner > *:nth-child(6){animation-delay:.95s}
+  .cover-inner > *:nth-child(7){animation-delay:1.10s}
+  .cover-inner > *:nth-child(8){animation-delay:1.25s}
+  .cover-inner > *:nth-child(9){animation-delay:1.45s}
+  .cover-inner > *:nth-child(10){animation-delay:1.60s}
   .cover-title{
     font-family:"Cinzel", serif; font-weight:600; text-align:center;
     font-size:clamp(1.05rem, 4.6vw, 1.45rem); letter-spacing:.14em;
@@ -224,7 +224,7 @@
   }
   .cover-emblem img{width:100%; height:100%; object-fit:cover; border-radius:50%; display:block}
   .cover-emblem figcaption{font-family:"Cinzel", serif; font-size:.56rem; font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-bright); margin-top:15px; text-shadow:0 1px 3px rgba(0,0,0,.8), 0 2px 12px rgba(2,16,22,.9)}
-  .cover-names{font-family:"Alex Brush", cursive; font-size:clamp(3.5rem, 12.5vw, 5.3rem); line-height:1.22; letter-spacing:.03em; margin:10px 0 2px; font-weight:400; filter:drop-shadow(0 2px 5px rgba(0,0,0,.55)) drop-shadow(0 4px 20px rgba(2,16,22,.55))}
+  .cover-names{font-family:"Alex Brush", cursive; font-size:clamp(2.6rem, 11.6vw, 5.3rem); line-height:1.22; letter-spacing:.01em; margin:10px 0 2px; font-weight:400; filter:drop-shadow(0 2px 5px rgba(0,0,0,.55)) drop-shadow(0 4px 20px rgba(2,16,22,.55))}
   .cover-amp{font-family:"Alex Brush", cursive; font-size:2.3rem; display:block; line-height:1.05}
   .cover-blessing{
     position:relative; font-style:italic; font-weight:600; color:#fffbe9; margin:14px 0 0; line-height:1.45;
@@ -247,6 +247,20 @@
   @keyframes pulseBtn{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
   #openBtn:active{transform:scale(.97)}
   .cover-hint{margin-top:16px; font-style:italic; font-weight:500; color:rgba(255,246,216,.94); font-size:1rem; text-shadow:0 1px 3px rgba(0,0,0,.75), 0 2px 12px rgba(2,16,22,.85)}
+  /* phones: tighten the whole cover stack so title, names and button
+     all fit on one screen — nothing pushed off the top */
+  @media (max-width:560px){
+    .cover-inner{padding:26px 18px 26px}
+    .cover-title{margin-bottom:6px}
+    .cover-emblems{margin-top:10px}
+    .cover-emblem .ring{width:clamp(76px,22vw,116px); height:clamp(76px,22vw,116px)}
+    .cover-emblem figcaption{margin-top:11px}
+    .cover-blessing{margin-top:10px}
+    .cover-names{margin-top:6px}
+    .cover-sub{margin-top:12px}
+    #openBtn{margin-top:24px}
+    .cover-hint{margin-top:12px}
+  }
 
   /* ---------- layout ---------- */
   main{position:relative; z-index:1}
@@ -302,7 +316,7 @@
   }
   @keyframes featherShimmer{0%,100%{filter:brightness(1)}50%{filter:brightness(1.14) saturate(1.12)}}
   .emblem figcaption{font-family:"Cinzel", serif; font-size:.6rem; font-weight:700; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-bright); margin-top:12px; text-shadow:0 1px 3px rgba(0,0,0,.8), 0 2px 12px rgba(2,16,22,.9)}
-  .hero-names{font-family:"Alex Brush", cursive; font-weight:400; font-size:clamp(3.7rem, 14vw, 6rem); line-height:1.24; letter-spacing:.03em; margin:40px 0 0; filter:drop-shadow(0 2px 5px rgba(0,0,0,.5)) drop-shadow(0 4px 20px rgba(2,16,22,.5))}
+  .hero-names{font-family:"Alex Brush", cursive; font-weight:400; font-size:clamp(2.75rem, 12.6vw, 6rem); line-height:1.24; letter-spacing:.01em; margin:40px 0 0; filter:drop-shadow(0 2px 5px rgba(0,0,0,.5)) drop-shadow(0 4px 20px rgba(2,16,22,.5))}
   .hero-amp{display:block; font-size:.55em; line-height:1.05}
   .invite-line{font-size:1.24rem; font-style:italic; font-weight:500; color:#eef2df; max-width:570px; margin:16px auto 0; text-shadow:0 1px 3px rgba(0,0,0,.55), 0 2px 12px rgba(2,16,22,.7)}
   .parents{display:grid; gap:18px; margin-top:36px}
