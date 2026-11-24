@@ -62,6 +62,8 @@
     -webkit-background-clip:text; background-clip:text;
     -webkit-text-fill-color:transparent; color:transparent;
   }
+  /* the script font's space glyph is very wide — tighten the gap between words */
+  .split .ch.sp{width:.17em}
   .armed .split .ch{opacity:0}
   .play .split .ch{
     animation:chIn .85s cubic-bezier(.19,.75,.25,1) both, shimmer 7s linear infinite;
@@ -724,7 +726,7 @@
       el.appendChild(w);
       if (wi < words.length - 1){
         var sp = document.createElement('span');
-        sp.className = 'ch';
+        sp.className = 'ch sp';
         sp.style.setProperty('--i', idx++);
         sp.textContent = ' ';
         el.appendChild(sp);
