@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#02141c" />
+<script>document.documentElement.classList.add('boot');</script>
 <link rel="icon" href="data:," />
 <title>Chinchalapu's Wedding Invitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -26,7 +28,7 @@
     --line-soft:rgba(217,180,91,.18);
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth; background:#02141c}
   body{
     margin:0; color:var(--ink);
     font-family:"Cormorant Garamond", Georgia, serif;
@@ -202,6 +204,12 @@
   .cover-inner > *:nth-child(8){animation-delay:1.25s}
   .cover-inner > *:nth-child(9){animation-delay:1.45s}
   .cover-inner > *:nth-child(10){animation-delay:1.60s}
+  /* first-paint gate: while <html> has .boot (removed by script once the
+     webfonts and cover artwork are ready), the cover entrance stays parked
+     on the dark cover background — no fallback-font flash, no unsplit-name
+     flash, no medallion pop-in in the first moment */
+  .boot .cover-inner > *{animation:none; opacity:0}
+  .boot .cover-glow{animation:none; opacity:0}
   .cover-title{
     font-family:"Cinzel", serif; font-weight:600; text-align:center;
     font-size:clamp(1.05rem, 4.6vw, 1.45rem); letter-spacing:.14em;
@@ -754,7 +762,38 @@
   }
   document.querySelectorAll('.split').forEach(splitName);
   document.querySelectorAll('.cover-names, .hero-names').forEach(function(el){ el.classList.add('armed'); });
-  setTimeout(function(){ cover.classList.add('play'); }, reduced ? 0 : 480);
+
+  /* ---------- clean first paint ----------
+     The cover entrance (and the letter animation) only starts once the
+     webfonts and the cover artwork are actually in, so the first thing a
+     phone shows is the finished cover fading in — not a fallback-font
+     flash or images popping in one by one. A hard cap guarantees the
+     cover can never be trapped by a slow network. */
+  var booted = false;
+  function unboot(){
+    if (booted) return; booted = true;
+    document.documentElement.classList.remove('boot');
+    setTimeout(function(){ cover.classList.add('play'); }, reduced ? 0 : 480);
+  }
+  var bootWait = [];
+  if (document.fonts && document.fonts.load){
+    bootWait.push(document.fonts.load('1em "Alex Brush"'));
+    bootWait.push(document.fonts.load('600 1em "Cinzel"'));
+    bootWait.push(document.fonts.load('italic 600 1em "Cormorant Garamond"'));
+  }
+  document.querySelectorAll('#cover img').forEach(function(img){
+    if (img.complete && img.naturalWidth) return;
+    bootWait.push(new Promise(function(res){
+      img.addEventListener('load', res, {once:true});
+      img.addEventListener('error', res, {once:true});
+    }));
+  });
+  if (bootWait.length && window.Promise){
+    Promise.all(bootWait).then(function(){ setTimeout(unboot, 40); }, unboot);
+  } else {
+    unboot();
+  }
+  setTimeout(unboot, 1400);
 
   /* ---------- music (unchanged behaviour) ---------- */
   function fadeTo(target, ms){
